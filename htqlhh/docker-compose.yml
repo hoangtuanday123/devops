@@ -1,0 +1,53 @@
+version: '3.9'
+services:
+  mysql:
+    image: mysql:8.4.1
+    container_name: htqlhh_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root@12345678
+      MYSQL_DATABASE: htqlcv
+      MYSQL_USER: htqlcv
+      MYSQL_PASSWORD: 12345678
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d/:ro
+    ports:
+      - '3307:3306'
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uhtqlcv", "-p12345678"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    container_name: htqlhh_redis
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6378:6379'
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - ./redis/data:/data
+    networks:
+      - backend
+
+  backend:
+    container_name: htqlhh_backend
+    image: hoangtuanhcmus/dev:htqlhh_backend_v1
+    ports:
+      - 80:8080
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
