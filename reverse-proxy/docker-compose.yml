@@ -1,5 +1,6 @@
 version: '3.8'
-
+# sudo certbot certonly --standalone -d hethongquanlybanle.xyz
+#cp -r /etc/letsencrypt/* ./certbot/ssl/ 
 services:
   nginx:
     image: nginx:latest
@@ -14,13 +15,13 @@ services:
     restart: always
     networks:
       - proxy_network
-  certbot:
-    image: certbot/certbot:latest
-    container_name: certbot
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email thanh.nguyen@atekx.com -d xoee.connexus.vn --agree-tos --post-hook "chmod -R 755 /etc/letsencrypt/live /etc/letsencrypt/archive"
-    volumes:
-      - ./certbot/www/:/var/www/certbot/
-      - ./certbot/ssl/:/etc/letsencrypt/
+#  certbot:
+#    image: certbot/certbot:latest
+#    container_name: certbot
+#    command: certonly --webroot -w /var/www/certbot --force-renewal --email pnhtuanhcmus@gmail.com -d hethongquanlybanle.xyz --agree-tos --post-hook "chmod -R 755 /etc/letsencrypt/live /etc/letsencrypt/archive"
+#    volumes:
+#      - ./certbot/www/:/var/www/certbot/
+#      - ./certbot/ssl/:/etc/letsencrypt/
 networks:
   proxy_network:
     external: true

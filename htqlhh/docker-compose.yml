@@ -14,7 +14,7 @@ services:
     ports:
       - '3307:3306'
     networks:
-      - backend
+      - proxy_network
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uhtqlcv", "-p12345678"]
       interval: 10s
@@ -31,7 +31,7 @@ services:
     volumes:
       - ./redis/data:/data
     networks:
-      - backend
+      - proxy_network
 
   backend:
     container_name: htqlhh_backend
@@ -46,8 +46,8 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
     networks:
-      - backend
+      - proxy_network
 
 networks:
-  backend:
-    driver: bridge
+  proxy_network:
+    external: true
