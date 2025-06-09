@@ -35,7 +35,7 @@ services:
 
   backend:
     container_name: htqlhh_backend
-    image: hoangtuanhcmus/dev:htqlhh_backend_v1
+    image: hoangtuanhcmus/dev:htqlhh_backend_v2
     ports:
       - 8080:8080
     depends_on:
@@ -47,6 +47,17 @@ services:
       SPRING_PROFILES_ACTIVE: prod
     networks:
       - proxy_network
+  frontend:
+  container_name: htqlhh_frontend
+    image: hoangtuanhcmus/dev:htqlhh_frontend_v1
+    container_name: xip_frontend
+    ports:
+      - "9000:9000"
+    depends_on:
+      - backend
+    networks:
+      - proxy_network
+
 
 networks:
   proxy_network:
