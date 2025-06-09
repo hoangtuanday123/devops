@@ -35,7 +35,7 @@ services:
 
   backend:
     container_name: htqlhh_backend
-    image: hoangtuanhcmus/dev:htqlhh_backend_v3
+    image: hoangtuanhcmus/dev:htqlhh_backend_v4
     ports:
       - 8080:8080
     depends_on:
