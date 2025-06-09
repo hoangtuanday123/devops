@@ -50,7 +50,6 @@ services:
   frontend:
     container_name: htqlhh_frontend
     image: hoangtuanhcmus/dev:htqlhh_frontend_v1
-    container_name: xip_frontend
     ports:
       - "9000:9000"
     depends_on:
