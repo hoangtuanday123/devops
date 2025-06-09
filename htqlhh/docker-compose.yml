@@ -48,7 +48,7 @@ services:
     networks:
       - proxy_network
   frontend:
-  container_name: htqlhh_frontend
+    container_name: htqlhh_frontend
     image: hoangtuanhcmus/dev:htqlhh_frontend_v1
     container_name: xip_frontend
     ports:
