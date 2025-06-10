@@ -49,7 +49,7 @@ services:
       - proxy_network
   frontend:
     container_name: htqlhh_frontend
-    image: hoangtuanhcmus/dev:htqlhh_frontend_v8
+    image: hoangtuanhcmus/dev:htqlhh_frontend_v9
     ports:
       - "9000:9000"
     depends_on:
