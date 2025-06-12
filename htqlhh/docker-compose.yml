@@ -35,7 +35,7 @@ services:
 
   backend:
     container_name: htqlhh_backend
-    image: hoangtuanhcmus/dev:htqlhh_backend_v7
+    image: hoangtuanhcmus/dev:htqlhh_backend_v8
     ports:
       - 8080:8080
     depends_on:
@@ -49,11 +49,37 @@ services:
       - proxy_network
   frontend:
     container_name: htqlhh_frontend
-    image: hoangtuanhcmus/dev:htqlhh_frontend_v15
+    image: hoangtuanhcmus/dev:htqlhh_frontend_v16
     ports:
       - "9000:9000"
     depends_on:
       - backend
+    networks:
+      - proxy_network
+  aiService:
+    container_name: htqlhh_aiService
+    image: hoangtuanhcmus/dev:htqlhh_aiService_v1
+    ports:
+      - 8001:8001
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      ENV: prod
+      DEBUG_MODE: True
+      HOST: localhost
+      PORT: 8001
+      PROJECT_NAME: AI SERVICE
+      PROJECT_VERSION: 1.0.0
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_USER: htqlcv
+      MYSQL_PASSWORD: 12345678
+      MYSQL_DB: htqlcv
+      LANGSMITH_TRACING: true
+      LANGSMITH_API_KEY: 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
+      LANGSMITH_PROJECT: default
+      GOOGLE_API_KEY: AIzaSyCouB8i4EIecncz8fPKGYtqYqlpa-FgiKo
     networks:
       - proxy_network
 
